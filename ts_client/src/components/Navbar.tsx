@@ -6,20 +6,16 @@ export const Navbar:React.FC = () => {
 	let menuStatus:boolean = false // closed
 
 	const menuSlideIn = (position:number) => {
-		const menuContainer = document.createElement('div')
-		menuContainer.id = 'menu-slider'
-		menuContainer.classList.add('menu-container')
-		menuContainer.classList.add('bg-secondary')
-		document.body.appendChild(menuContainer)
+		const menuContainer = document.getElementById('menu-slider')
+		menuContainer?.classList.add('bg-secondary')
 		const leftMax:number = position * (1/4)
 		const slideTimer = setInterval(() => {
 			if (position > leftMax) {
 				position -= 15
-				menuContainer.style.left = `${position}px`
+				menuContainer!.style.left = `${position}px`
 			}
 			else {
 				clearInterval(slideTimer)
-				Menu(menuContainer)
 			}
 		},10)
 	}
@@ -36,7 +32,6 @@ export const Navbar:React.FC = () => {
 				}
 				else {
 					clearInterval(slideTimer)
-					menuContainer?.remove()
 				}
 			})
 		}

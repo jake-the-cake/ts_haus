@@ -1,6 +1,6 @@
 {
   "name": "ts_client",
-  "homepage": "https://jake-the-cake.github.io/ts_haus/index.html",
+  "homepage": "https://jake-the-cake.github.io/ts_haus/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

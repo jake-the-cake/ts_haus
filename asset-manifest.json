@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/ts_haus/static/css/main.d0ff8fa6.css",
+    "main.css": "/ts_haus/static/css/main.652f481b.css",
     "main.js": "/ts_haus/static/js/main.048040a1.js",
     "static/js/787.7de47166.chunk.js": "/ts_haus/static/js/787.7de47166.chunk.js",
     "index.html": "/ts_haus/index.html",
-    "main.d0ff8fa6.css.map": "/ts_haus/static/css/main.d0ff8fa6.css.map",
+    "main.652f481b.css.map": "/ts_haus/static/css/main.652f481b.css.map",
     "main.048040a1.js.map": "/ts_haus/static/js/main.048040a1.js.map",
     "787.7de47166.chunk.js.map": "/ts_haus/static/js/787.7de47166.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d0ff8fa6.css",
+    "static/css/main.652f481b.css",
     "static/js/main.048040a1.js"
   ]
 }

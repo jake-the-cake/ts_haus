@@ -77,7 +77,26 @@ code {
   height: 100%;
   position: absolute;
   left: 100%;
-  background-color: aqua;
+  background-color: white;
+  box-shadow: -2px 0px 15px -5px;
   padding-top: 75px;
   padding-left: 35px;
+}
+
+.menu-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.menu-title {
+  font-size: 1.4rem;
+}
+
+.menu-link {
+  width: 90%;
+  padding: 1rem;
+  font-size: 1.6rem;
+  border: 1px solid #aaa;
+  border-radius: 5px;
 }

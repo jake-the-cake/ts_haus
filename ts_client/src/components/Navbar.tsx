@@ -1,11 +1,7 @@
 import React from "react"
 import { Menu } from "./Menu"
 
-type Props = {
-	type: string
-}
-
-export const Navbar:React.FC = (Props) => {
+export const Navbar:React.FC = () => {
 
 	let menuStatus:boolean = false // closed
 
@@ -13,6 +9,7 @@ export const Navbar:React.FC = (Props) => {
 		const menuContainer = document.createElement('div')
 		menuContainer.id = 'menu-slider'
 		menuContainer.classList.add('menu-container')
+		menuContainer.classList.add('bg-secondary')
 		document.body.appendChild(menuContainer)
 		const leftMax:number = position * (1/4)
 		const slideTimer = setInterval(() => {
@@ -22,9 +19,7 @@ export const Navbar:React.FC = (Props) => {
 			}
 			else {
 				clearInterval(slideTimer)
-				const html = Menu({props:{}})
-				console.log(html)
-				menuContainer.innerHTML = html?.type
+				Menu(menuContainer)
 			}
 		},10)
 	}
@@ -33,7 +28,6 @@ export const Navbar:React.FC = (Props) => {
 		const menuContainer = document.getElementById('menu-slider')
 
 		const moveSlider = () => {
-			let currentPosition:number = parseInt(menuContainer!.style.left)
 			const pageWidth = document.body.offsetWidth
 			const slideTimer = setInterval(() => {
 				if (position < pageWidth) {
@@ -59,7 +53,6 @@ export const Navbar:React.FC = (Props) => {
 		else {
 			menuSlideOut(xPos * .25)
 		}
-		const rightMax:number = xPos
 	}
 
 	return (

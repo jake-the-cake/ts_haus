@@ -1,13 +1,12 @@
-export const Menu:Function = (outputDiv:Element) => {
-		const html:string = `
-			<div class="menu-content">
-				<div class="menu-title">Generic Links</div>
-				<div class="menu-link bg-warning">link</div>
-				<div class="menu-link bg-info">link</div>
-				<div class="menu-link bg-danger">link</div>
-				<div class="menu-link bg-success">link</div>
-				<div class="menu-link bg-primary">link</div>
-			</div>
-		`
-	outputDiv.innerHTML = html
+export const Menu:Function = async (outputDiv:Element) => {
+	outputDiv.innerHTML = `
+		<div class="menu-content">
+			<div class="menu-title text-light">Select an app</div>
+			<div class="menu-link bg-warning"><span id="menu-shopping"></span>Shopping</div>
+			<div class="menu-link bg-info">Birthdays</div>
+			<div class="menu-link bg-danger">Recipes</div>
+			<div class="menu-link bg-success">Contacts</div>
+			<div class="menu-link bg-primary">Albums</div>
+		</div>
+	`
 }

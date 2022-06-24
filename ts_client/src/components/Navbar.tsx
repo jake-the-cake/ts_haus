@@ -56,7 +56,6 @@ export const Navbar:React.FC = () => {
 	}
 
 	return (
-		<>
 		<div className="vw-100 bg-dark navbar-stick">
 			<nav className="navbar navbar-expand-md navbar-dark mx-3 text-light">
 				<div className="navbar-layout">
@@ -72,7 +71,5 @@ export const Navbar:React.FC = () => {
 				</div>
 			</nav>
 		</div>
-		{/* <Menu /> */}
-		</>
 	)
 }

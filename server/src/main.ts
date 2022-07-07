@@ -1,6 +1,9 @@
 import express from 'express'
+import dotenv from 'dotenv'
 
 const app = express()
+
+app.use(dotenv.config)
 
 app.get('/', (req,res) => {
 	res.status(200).json({
@@ -9,6 +12,6 @@ app.get('/', (req,res) => {
 	})
 })
 
-app.listen(process.env.PORT || 4200, () => {
+app.listen(process.env.PORT || 4000, () => {
 	console.log('server running')
 })

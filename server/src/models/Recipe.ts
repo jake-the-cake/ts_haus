@@ -6,7 +6,7 @@ export interface IngredientProps {
 	unit?: string
 }
 
-interface RecipeProps {
+export interface RecipeProps {
 	name: string,
 	slug?: string,
 	cat?: [string],

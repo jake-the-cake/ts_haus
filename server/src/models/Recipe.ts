@@ -1,24 +1,30 @@
-import { Schema, model } from 'mongoose'
+import mongoose from 'mongoose'
+
+export interface IngredientProps {
+	name: string,
+	amount?: number,
+	unit?: string
+}
 
 interface RecipeProps {
 	name: string,
 	slug?: string,
 	cat?: [string],
-	ingredients: [
-		{
-			name: string,
-			amount?: number,
-			unit?: string
-		}
-	]
+	ingredients: [{}]
 }
 
-const RecipeSchema = new Schema<RecipeProps>({
-	name: {type: String, required: true},
-	slug: {type: String, unique: true},
-	cat: Array,
-	ingredients: {type: Array, required: true}
-},
-{timestamps: true})
+const RecipeSchema = new mongoose.Schema<RecipeProps>(
+	{
+		name: {type: String, required: true},
+		slug: {type: String, unique: true},
+		cat: Array,
+		ingredients: Array
+	},
+	{
+		timestamps: true
+	}
+)
 
-export default model('Recipe', RecipeSchema)
+const RecipeModel = mongoose.model('Recipe', RecipeSchema)
+
+export default RecipeModel

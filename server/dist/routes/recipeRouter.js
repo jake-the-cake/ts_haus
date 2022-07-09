@@ -57,10 +57,9 @@ router.post('/new', (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     const { name, cat, ingredients } = req.body;
     let data;
     try {
-        let slug = yield validateSlug(name, 'recipe');
         data = yield new RecipeModel({
             name: name,
-            slug: slug,
+            slug: yield validateSlug(name, 'recipe'),
             cat: cat,
             ingredients: ingredients
         });

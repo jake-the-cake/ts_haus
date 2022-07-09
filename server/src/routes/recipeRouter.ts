@@ -67,11 +67,10 @@ router.post('/new', async (req,res) => {
 	const { name, cat, ingredients } = req.body
 	let data
 	try {
-		let slug = await validateSlug(name, 'recipe')
 		data = await new RecipeModel(
 			{
 				name: name,
-				slug: slug,
+				slug: await validateSlug(name, 'recipe'),
 				cat: cat,
 				ingredients: ingredients
 			}

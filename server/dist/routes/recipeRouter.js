@@ -9,42 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import express from 'express';
 import RecipeModel from '../models/Recipe.js';
+import { validateSlug } from '../utils/validation/validateSlug.js';
 const router = express.Router();
-const modelSelector = {
-    recipe: () => __awaiter(void 0, void 0, void 0, function* () { return yield RecipeModel.find(); })
-};
-const validateSlug = (originalSlug, model) => __awaiter(void 0, void 0, void 0, function* () {
-    originalSlug = originalSlug.toLowerCase().trim().split(' ').join('-');
-    const data = yield modelSelector[model]();
-    // get all that contain requested slug
-    const filteredData = data.filter((item) => {
-        return item.slug.includes(originalSlug);
-    });
-    if (filteredData.length > 0) {
-        // check if the exact url slug is avaiable
-        const checkForExact = filteredData.filter((item) => {
-            return item.slug === originalSlug;
-        });
-        if (checkForExact.length === 0) {
-            return originalSlug;
-        }
-        // filter out excess and return updated count
-        const doubleFilteredData = [];
-        const slugLength = originalSlug.split('-');
-        filteredData.forEach((item, index) => {
-            const validationArray = item.slug.split('-');
-            if (validationArray.length - 1 === slugLength.length) {
-                doubleFilteredData.push(filteredData[index]);
-            }
-        });
-        const newSlug = `${originalSlug}-${doubleFilteredData.length}`;
-        return `${newSlug}`;
-    }
-    else {
-        // return original if no matches exist
-        return originalSlug;
-    }
-});
 router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = yield RecipeModel.find();
     const ret = [];
@@ -55,9 +21,8 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 }));
 router.post('/new', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { name, cat, ingredients } = req.body;
-    let data;
     try {
-        data = yield new RecipeModel({
+        const data = yield new RecipeModel({
             name: name,
             slug: yield validateSlug(name, 'recipe'),
             cat: cat,

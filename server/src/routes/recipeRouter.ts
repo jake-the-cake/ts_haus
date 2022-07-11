@@ -1,5 +1,7 @@
 import express from 'express'
 import RecipeModel from '../models/Recipe.js'
+import { formatTitle } from '../utils/format/formatTitle.js'
+import { parseCategoryList } from '../utils/parse/parseCategoryList.js'
 import { validateSlug } from '../utils/validation/validateSlug.js'
 
 const router = express.Router()
@@ -14,14 +16,19 @@ router.get('/', async (req,res) => {
 })
 
 router.post('/new', async (req,res) => {
-	const { name, cat, ingredients } = req.body
+	let { name, cat, comps, steps } = req.body
+	
+	// check for blank name
+	if (name === '') { name = 'Untitled' }
+
 	try {
 		const data = await new RecipeModel(
 			{
-				name: name,
+				name: formatTitle(name),
 				slug: await validateSlug(name, 'recipe'),
-				cat: cat,
-				ingredients: ingredients
+				cat: parseCategoryList(cat),
+				comps: comps,
+				steps: steps
 			}
 		)
 		data.save()

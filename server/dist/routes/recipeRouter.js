@@ -9,6 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import express from 'express';
 import RecipeModel from '../models/Recipe.js';
+import { formatTitle } from '../utils/format/formatTitle.js';
+import { parseCategoryList } from '../utils/parse/parseCategoryList.js';
 import { validateSlug } from '../utils/validation/validateSlug.js';
 const router = express.Router();
 router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -20,13 +22,18 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.status(200).send();
 }));
 router.post('/new', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, cat, ingredients } = req.body;
+    let { name, cat, comps, steps } = req.body;
+    // check for blank name
+    if (name === '') {
+        name = 'Untitled';
+    }
     try {
         const data = yield new RecipeModel({
-            name: name,
+            name: formatTitle(name),
             slug: yield validateSlug(name, 'recipe'),
-            cat: cat,
-            ingredients: ingredients
+            cat: parseCategoryList(cat),
+            comps: comps,
+            steps: steps
         });
         data.save();
         res.status(201).json(data);

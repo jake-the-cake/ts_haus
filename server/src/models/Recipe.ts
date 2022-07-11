@@ -8,17 +8,19 @@ export interface IngredientProps {
 
 export interface RecipeProps {
 	name: string,
-	slug?: string,
-	cat?: [string],
-	ingredients: [{}]
+	slug: string,
+	cat: string[],
+	comps: object[],
+	steps: string[]
 }
 
 const RecipeSchema = new mongoose.Schema<RecipeProps>(
 	{
 		name: {type: String, required: true},
-		slug: {type: String, unique: true},
+		slug: {type: String, unique: true, required: true},
 		cat: Array,
-		ingredients: Array
+		comps: Array,
+		steps: Array
 	},
 	{
 		timestamps: true

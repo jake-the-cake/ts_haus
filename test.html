@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		 const formatTitle = (text) => {
+
+				const splitText = text.split(' ')
+				splitText.forEach((word, i) => {
+					splitText[i] = `${word[0].toUpperCase()}${word.slice(1).toLowerCase()}`
+				})
+				console.log(splitText.join(' '))
+				// return splitText.join(' ')
+			}
+			formatTitle('title')
+			formatTitle('recipe title')
+			formatTitle('3 recipe title')
+	</script>
+</body>
+</html>

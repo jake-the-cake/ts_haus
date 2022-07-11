@@ -3,13 +3,16 @@
   "version": "1.0.0",
   "main": "main.js",
   "type": "module",
-  "license": "MIT",
+  "license": "Quiet Goat Labs",
   "dependencies": {
     "body-parser": "^1.20.0",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "mongoose": "^6.4.3",
     "typescript": "^4.7.4"
+  },
+  "scripts": {
+    "start": "node ./dist/main.js"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",

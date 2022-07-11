@@ -16,8 +16,24 @@ router.get('/', async (req,res) => {
 })
 
 router.post('/new', async (req,res) => {
-	let { name, cat, comps, steps } = req.body
+	let { name, cat, ...data } = req.body
 	
+	// parse ingredient and instruction data
+	// ::: TODO -- set implicit boundaries for tempObject
+	const comps: object[] = []
+	const steps: object[] = []
+	let tempObject: any = {}
+	for (const [key, value] of Object.entries(data)) {
+		let keyArray = key.split('-')
+		if (keyArray[0] === 'comp') {
+			tempObject[keyArray[1]] = value
+			if (keyArray[1] === 'unit') {
+				comps.push(tempObject)
+				tempObject = {}
+			}
+		}
+	}
+
 	// check for blank name
 	if (name === '') { name = 'Untitled' }
 
@@ -28,7 +44,7 @@ router.post('/new', async (req,res) => {
 				slug: await validateSlug(name, 'recipe'),
 				cat: parseCategoryList(cat),
 				comps: comps,
-				steps: steps
+				steps: 'steps'
 			}
 		)
 		data.save()

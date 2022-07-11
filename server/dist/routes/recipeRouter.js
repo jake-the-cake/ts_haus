@@ -7,6 +7,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+};
 import express from 'express';
 import RecipeModel from '../models/Recipe.js';
 import { formatTitle } from '../utils/format/formatTitle.js';
@@ -22,7 +33,22 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.status(200).send();
 }));
 router.post('/new', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let { name, cat, comps, steps } = req.body;
+    let _a = req.body, { name, cat } = _a, data = __rest(_a, ["name", "cat"]);
+    // parse ingredient and instruction data
+    // ::: TODO -- set implicit boundaries for tempObject
+    const comps = [];
+    const steps = [];
+    let tempObject = {};
+    for (const [key, value] of Object.entries(data)) {
+        let keyArray = key.split('-');
+        if (keyArray[0] === 'comp') {
+            tempObject[keyArray[1]] = value;
+            if (keyArray[1] === 'unit') {
+                comps.push(tempObject);
+                tempObject = {};
+            }
+        }
+    }
     // check for blank name
     if (name === '') {
         name = 'Untitled';
@@ -33,7 +59,7 @@ router.post('/new', (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             slug: yield validateSlug(name, 'recipe'),
             cat: parseCategoryList(cat),
             comps: comps,
-            steps: steps
+            steps: 'steps'
         });
         data.save();
         res.status(201).json(data);

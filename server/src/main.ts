@@ -17,10 +17,6 @@ app.use(express.urlencoded({extended:false}))
 
 app.use('/cookbook', recipeRouter)
 
-app.get('/', (req,res) => {
-	res.status(200).send('hi')
-})
-
 app.listen(process.env.PORT || 4000, () => {
 	console.log('server running')
 })

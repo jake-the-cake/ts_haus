@@ -136,6 +136,28 @@ code {
   box-shadow: none;
 }
 
+.ingredients-box {
+  display: grid;
+  margin: 1rem 0px;
+  gap: 1rem;
+  grid-template-columns: calc(60% - 2rem) 25% 15%;
+  background-color: rgba(0,0,0,.7);
+  color: white;
+  font-weight: 900;
+  padding: .3rem 1rem 1rem;
+}
+
+.ingredients-box legend {
+  grid-column: 1 / 4;
+  margin-bottom: -.5rem;
+}
+
+.ingredients-box input {
+  padding: .3rem .5rem;
+}
+
+
+ /* responsive */
 @media only screen and (min-width: 650px) {
   .menu-title {
     grid-column: 1 / 3;

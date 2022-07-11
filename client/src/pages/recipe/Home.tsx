@@ -27,7 +27,15 @@ export const Home:FC<HomeProps> = () => {
 			<form name='recipe-form' id='recipe-form' action="http://localhost:4200/cookbook/new" method="POST" style={{display: 'flex', flexDirection: 'column'}}>
 				<label htmlFor="name">Title</label><input name="name" type="text" />
 				<label htmlFor="cat">Categories</label><input name="cat" type="text" />
-				<label htmlFor="comps">Ingredients</label><input name="comps" type="text" />
+				<fieldset id="ingredients-box" className="ingredients-box">
+					<legend >Ingredients</legend>
+					<input name="comp-name-0" type="text" placeholder="Item Description" />
+					<input name="comp-amount-0" type="text" width="10" placeholder="Amount"  />
+					<input name="comp-unit-0" type="text" width="5" placeholder="Unit" />
+					<input name="comp-name-1" type="text" placeholder="Item Description" />
+					<input name="comp-amount-1" type="text" width="10" placeholder="Amount"  />
+					<input name="comp-unit-1" type="text" width="5" placeholder="Unit" />
+				</fieldset>
 				<label htmlFor="steps">Directions</label><input name="steps" type="text" />
 				<button id='submit-recipe-button'>Submit</button>
 			</form>

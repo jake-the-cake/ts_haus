@@ -1,7 +1,7 @@
 {
   "name": "ts_client",
   "homepage": "https://jake-the-cake.github.io/ts_haus/",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "type": "module",
   "dependencies": {
@@ -18,7 +18,6 @@
     "@types/react-dom": "^18.0.0",
     "axios": "^0.27.2",
     "bootstrap": "^5.1.3",
-    "express": "^4.18.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.4.0",
     "react-dom": "^18.2.0",
@@ -30,7 +29,7 @@
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "start": "yarn run start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

@@ -6,16 +6,16 @@ import { validateSlug } from '../utils/validation/validateSlug.js'
 
 const router = express.Router()
 
-router.get('/', async (req,res) => {
+router.get('/', async (req:any,res:any) => {
 	const data = await RecipeModel.find()
 	const ret = []
-	data.forEach((item) => {
+	data.forEach((item: {slug:string}) => {
 		ret.push(item.slug)
 	})
 	res.status(200).send()
 })
 
-router.post('/new', async (req,res) => {
+router.post('/new', async (req:any,res:any) => {
 	let { name, cat, ...data } = req.body
 	
 	// parse ingredient and instruction data
@@ -44,7 +44,7 @@ router.post('/new', async (req,res) => {
 				slug: await validateSlug(name, 'recipe'),
 				cat: parseCategoryList(cat),
 				comps: comps,
-				steps: 'steps'
+				steps: steps
 			}
 		)
 		data.save()

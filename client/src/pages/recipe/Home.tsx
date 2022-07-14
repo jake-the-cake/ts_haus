@@ -38,7 +38,7 @@ export const Home:FC<HomeProps> = () => {
 					<input name="comp-amount-1" type="text" width="10" placeholder="Amount"  />
 					<input name="comp-unit-1" type="text" width="5" placeholder="Unit" />
 				</fieldset>
-				<label htmlFor="steps">Directions</label><input name="steps" type="text" />
+				<label htmlFor="steps">Directions</label><input name="step-text-0" type="text" />
 				<button id='submit-recipe-button'>Submit</button>
 			</form>
 		</div>

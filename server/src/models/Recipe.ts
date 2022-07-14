@@ -11,7 +11,10 @@ export interface RecipeProps {
 	slug: string,
 	cat: string[],
 	comps: object[],
-	steps: string[]
+	steps: string[],
+	author: string,
+	credit: string,
+	private: boolean
 }
 
 const RecipeSchema = new mongoose.Schema<RecipeProps>(
@@ -20,7 +23,10 @@ const RecipeSchema = new mongoose.Schema<RecipeProps>(
 		slug: {type: String, unique: true, required: true},
 		cat: Array,
 		comps: Array,
-		steps: Array
+		steps: Array,
+		author: {type: String, required: true},
+		credit: String,
+		private: {type: Boolean, default: false}
 	},
 	{
 		timestamps: true

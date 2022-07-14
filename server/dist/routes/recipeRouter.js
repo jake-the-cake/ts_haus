@@ -22,6 +22,7 @@ import express from 'express';
 import RecipeModel from '../models/Recipe.js';
 import { formatTitle } from '../utils/format/formatTitle.js';
 import { parseCategoryList } from '../utils/parse/parseCategoryList.js';
+import { parseRecipeComponents } from '../utils/parse/parseRecipeComponents.js';
 import { validateSlug } from '../utils/validation/validateSlug.js';
 const router = express.Router();
 router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -34,21 +35,8 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 }));
 router.post('/new', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let _a = req.body, { name, cat } = _a, data = __rest(_a, ["name", "cat"]);
-    // parse ingredient and instruction data
-    // ::: TODO -- set implicit boundaries for tempObject
-    const comps = [];
-    const steps = [];
-    let tempObject = {};
-    for (const [key, value] of Object.entries(data)) {
-        let keyArray = key.split('-');
-        if (keyArray[0] === 'comp') {
-            tempObject[keyArray[1]] = value;
-            if (keyArray[1] === 'unit') {
-                comps.push(tempObject);
-                tempObject = {};
-            }
-        }
-    }
+    // sort out ingredients and directions
+    const { comps, steps } = parseRecipeComponents(data);
     // check for blank name
     if (name === '') {
         name = 'Untitled';
@@ -59,7 +47,9 @@ router.post('/new', (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             slug: yield validateSlug(name, 'recipe'),
             cat: parseCategoryList(cat),
             comps: comps,
-            steps: steps
+            steps: steps,
+            author: 'Chef Jake',
+            private: true
         });
         data.save();
         res.status(201).json(data);

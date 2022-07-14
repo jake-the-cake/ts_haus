@@ -2,7 +2,8 @@
 
 const MyCookbook = () => {
     const getData = async () => {
-        const data = await (await fetch('https://haus-app-server.herokuapp.com/cookbook')).json()
+        const data = await (await fetch('http://localhost:4200/cookbook')).json()
+        console.log(data)
     }
 
     getData()

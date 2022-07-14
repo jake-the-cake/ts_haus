@@ -31,7 +31,7 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     data.forEach((item) => {
         ret.push(item.slug);
     });
-    res.status(200).send();
+    res.status(200).json(ret);
 }));
 router.post('/new', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let _a = req.body, { name, cat } = _a, data = __rest(_a, ["name", "cat"]);

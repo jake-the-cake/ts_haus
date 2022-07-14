@@ -9,11 +9,11 @@ const router = express.Router()
 
 router.get('/', async (req,res) => {
 	const data = await RecipeModel.find()
-	const ret = []
+	const ret: string[] = []
 	data.forEach((item: {slug:string}) => {
 		ret.push(item.slug)
 	})
-	res.status(200).send()
+	res.status(200).json(ret)
 })
 
 router.post('/new', async (req,res) => {

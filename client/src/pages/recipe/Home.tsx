@@ -21,7 +21,8 @@ const handleRecipeSubmission = document
 	})
 
 export const Home:FC<HomeProps> = () => {
-	const url: string = 'https://haus-app-server.herokuapp.com/cookbook/new'
+	const url: string = 'http://localhost:4200/cookbook/new'
+	// const url: string = 'https://haus-app-server.herokuapp.com/cookbook/new'
 	return (
 		<div className="form-container">
 			Add a recipe.

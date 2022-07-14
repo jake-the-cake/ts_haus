@@ -59,7 +59,7 @@ router.post('/new', (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             slug: yield validateSlug(name, 'recipe'),
             cat: parseCategoryList(cat),
             comps: comps,
-            steps: 'steps'
+            steps: steps
         });
         data.save();
         res.status(201).json(data);

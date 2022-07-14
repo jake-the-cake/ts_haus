@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Menu } from './components/Menu';
 import { Navbar } from './components/Navbar';
 import { Home as RecipeHome } from './pages/recipe/Home';
@@ -14,7 +14,7 @@ export const App:React.FC = () => {
       <Routes>
         <Route path='ts_haus/cookbook'>
           <Route path='add' element={<RecipeHome />} />
-          <Route path=':user'>
+          <Route path=':slug'>
             <Route path='' element={<MyCookbook />}/>
           </Route>
         </Route>

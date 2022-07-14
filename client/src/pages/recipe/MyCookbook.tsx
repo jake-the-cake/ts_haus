@@ -1,16 +1,35 @@
+import axios from "axios"
+import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
 
 
-const MyCookbook = () => {
+const MyCookbook = (props: any) => {
+    const [recipes, setRecipes]: any = useState({})
+    let { slug } = useParams()
+
     const getData = async () => {
-        const data = await (await fetch('http://localhost:4200/cookbook')).json()
-        console.log(data)
+        const { data } = await axios.get(
+            `http://localhost:4200/cookbook/${slug}`,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json'
+                }
+            }
+        )
+        return data
     }
-
-    getData()
+    
+    useEffect(() => {
+        const data = (async () => {
+            const [ret] = await getData()
+            setRecipes(ret)
+        })()
+    },[])
 
     return (
         <>
-            check your console
+           {recipes.cat}
         </>
     )
 }

@@ -9,11 +9,21 @@ const router = express.Router()
 
 router.get('/', async (req,res) => {
 	const data = await RecipeModel.find()
-	const ret: string[] = []
-	data.forEach((item: {slug:string}) => {
-		ret.push(item.slug)
+	const ret: object[] = []
+	data.forEach((item: {}) => {
+		ret.push(item)
 	})
 	res.status(200).json(ret)
+})
+
+router.get('/:slug', async (req,res) => {
+	try {
+		const data = await RecipeModel.where({slug: req.params.slug})
+		res.status(200).json(data)
+	}
+	catch (err: any) {
+		console.log(err.message)
+	}
 })
 
 router.post('/new', async (req,res) => {

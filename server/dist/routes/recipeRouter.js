@@ -29,9 +29,18 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = yield RecipeModel.find();
     const ret = [];
     data.forEach((item) => {
-        ret.push(item.slug);
+        ret.push(item);
     });
     res.status(200).json(ret);
+}));
+router.get('/:slug', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const data = yield RecipeModel.where({ slug: req.params.slug });
+        res.status(200).json(data);
+    }
+    catch (err) {
+        console.log(err.message);
+    }
 }));
 router.post('/new', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let _a = req.body, { name, cat } = _a, data = __rest(_a, ["name", "cat"]);

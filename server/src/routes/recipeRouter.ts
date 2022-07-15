@@ -7,6 +7,13 @@ import { validateSlug } from '../utils/validation/validateSlug.js'
 
 const router = express.Router()
 
+const parseAuthorSlug: (name:string)=>string = (name) => {
+	if (typeof name === 'string') {
+		name = name.toLowerCase().split(' ').join('-')
+	}
+	return name
+}
+
 router.get('/', async (req,res) => {
 	const data = await RecipeModel.find()
 	const ret: object[] = []
@@ -16,9 +23,17 @@ router.get('/', async (req,res) => {
 	res.status(200).json(ret)
 })
 
-router.get('/:slug', async (req,res) => {
+router.get('/user/:user', async (req,res) => {
+	const data = await RecipeModel.find()
+	const user = req.params.user.replace('}','')
+	const filteredData = data.filter(({author}) => parseAuthorSlug(author) === user)
+	res.status(200).json(filteredData)
+})
+
+router.get('/recipe/:slug', async (req,res) => {
+	const slug = req.params.slug.replace('}','')
 	try {
-		const data = await RecipeModel.where({slug: req.params.slug})
+		const data = await RecipeModel.where({slug: slug})
 		res.status(200).json(data)
 	}
 	catch (err: any) {

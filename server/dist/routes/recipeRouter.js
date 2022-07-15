@@ -25,6 +25,12 @@ import { parseCategoryList } from '../utils/parse/parseCategoryList.js';
 import { parseRecipeComponents } from '../utils/parse/parseRecipeComponents.js';
 import { validateSlug } from '../utils/validation/validateSlug.js';
 const router = express.Router();
+const parseAuthorSlug = (name) => {
+    if (typeof name === 'string') {
+        name = name.toLowerCase().split(' ').join('-');
+    }
+    return name;
+};
 router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = yield RecipeModel.find();
     const ret = [];
@@ -33,9 +39,16 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     });
     res.status(200).json(ret);
 }));
-router.get('/:slug', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/user/:user', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const data = yield RecipeModel.find();
+    const user = req.params.user.replace('}', '');
+    const filteredData = data.filter(({ author }) => parseAuthorSlug(author) === user);
+    res.status(200).json(filteredData);
+}));
+router.get('/recipe/:slug', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const slug = req.params.slug.replace('}', '');
     try {
-        const data = yield RecipeModel.where({ slug: req.params.slug });
+        const data = yield RecipeModel.where({ slug: slug });
         res.status(200).json(data);
     }
     catch (err) {

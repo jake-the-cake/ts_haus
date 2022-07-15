@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-interface HomeProps {
+interface AddRecipeProps {
 	props?: string
 }
 
@@ -20,7 +20,7 @@ const handleRecipeSubmission = document
 
 	})
 
-export const Home:FC<HomeProps> = () => {
+export const AddRecipe:FC<AddRecipeProps> = () => {
 	const url: string = 'http://localhost:4200/cookbook/new'
 	// const url: string = 'https://haus-app-server.herokuapp.com/cookbook/new'
 	return (

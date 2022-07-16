@@ -7,5 +7,5 @@
 		splitList.forEach((item:string, i:number) => {
 			splitList[i] = item.trim()
 		})
-		return splitList
+		return splitList.filter((category) => category !== '')
 	}

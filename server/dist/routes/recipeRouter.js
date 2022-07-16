@@ -22,33 +22,43 @@ import express from 'express';
 import RecipeModel from '../models/Recipe.js';
 import { formatTitle } from '../utils/format/formatTitle.js';
 import { parseCategoryList } from '../utils/parse/parseCategoryList.js';
+import { parseRecipeComponents } from '../utils/parse/parseRecipeComponents.js';
 import { validateSlug } from '../utils/validation/validateSlug.js';
 const router = express.Router();
+const parseAuthorSlug = (name) => {
+    if (typeof name === 'string') {
+        name = name.toLowerCase().split(' ').join('-');
+    }
+    return name;
+};
 router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = yield RecipeModel.find();
     const ret = [];
     data.forEach((item) => {
-        ret.push(item.slug);
+        ret.push(item);
     });
-    res.status(200).send();
+    res.status(200).json(ret);
+}));
+router.get('/user/:user', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const data = yield RecipeModel.find();
+    const user = req.params.user.replace('}', '');
+    const filteredData = data.filter(({ author }) => parseAuthorSlug(author) === user);
+    res.status(200).json(filteredData);
+}));
+router.get('/recipe/:slug', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const slug = req.params.slug.replace('}', '');
+    try {
+        const data = yield RecipeModel.where({ slug: slug });
+        res.status(200).json(data);
+    }
+    catch (err) {
+        console.log(err.message);
+    }
 }));
 router.post('/new', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let _a = req.body, { name, cat } = _a, data = __rest(_a, ["name", "cat"]);
-    // parse ingredient and instruction data
-    // ::: TODO -- set implicit boundaries for tempObject
-    const comps = [];
-    const steps = [];
-    let tempObject = {};
-    for (const [key, value] of Object.entries(data)) {
-        let keyArray = key.split('-');
-        if (keyArray[0] === 'comp') {
-            tempObject[keyArray[1]] = value;
-            if (keyArray[1] === 'unit') {
-                comps.push(tempObject);
-                tempObject = {};
-            }
-        }
-    }
+    // sort out ingredients and directions
+    const { comps, steps } = parseRecipeComponents(data);
     // check for blank name
     if (name === '') {
         name = 'Untitled';
@@ -59,7 +69,9 @@ router.post('/new', (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             slug: yield validateSlug(name, 'recipe'),
             cat: parseCategoryList(cat),
             comps: comps,
-            steps: 'steps'
+            steps: steps,
+            author: 'Chef Jake',
+            private: true
         });
         data.save();
         res.status(201).json(data);

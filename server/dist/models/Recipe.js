@@ -4,7 +4,10 @@ const RecipeSchema = new mongoose.Schema({
     slug: { type: String, unique: true, required: true },
     cat: Array,
     comps: Array,
-    steps: Array
+    steps: Array,
+    author: { type: String, required: true },
+    credit: String,
+    private: { type: Boolean, default: false }
 }, {
     timestamps: true
 });

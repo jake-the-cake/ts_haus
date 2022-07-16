@@ -3,5 +3,5 @@ export const parseCategoryList = (list) => {
     splitList.forEach((item, i) => {
         splitList[i] = item.trim();
     });
-    return splitList;
+    return splitList.filter((category) => category !== '');
 };

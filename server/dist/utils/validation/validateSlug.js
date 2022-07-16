@@ -12,7 +12,11 @@ const modelSelector = {
     recipe: () => __awaiter(void 0, void 0, void 0, function* () { return yield RecipeModel.find(); })
 };
 export const validateSlug = (originalSlug, model) => __awaiter(void 0, void 0, void 0, function* () {
-    originalSlug = originalSlug.toLowerCase().trim().split(' ').join('-');
+    const originalSlugArray = originalSlug.toLowerCase().trim().split(' ');
+    originalSlugArray.forEach((word, index, array) => {
+        array[index] = word.replace(/[^a-z0-9]/gi, '');
+    });
+    originalSlug = originalSlugArray.filter((text) => text !== '').join('-');
     const data = yield modelSelector[model]();
     // get all that contain requested slug
     const filteredData = data.filter((item) => {

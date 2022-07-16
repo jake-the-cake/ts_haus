@@ -16,7 +16,11 @@ interface SlugProps {
 }
 
 export const validateSlug:ValidateSlugProps = async (originalSlug, model) => {
-	originalSlug = originalSlug.toLowerCase().trim().split(' ').join('-')
+	const originalSlugArray: string[] = originalSlug.toLowerCase().trim().split(' ')
+	originalSlugArray.forEach((word, index, array) => {
+		array[index] = word.replace(/[^a-z0-9]/gi, '')
+	})
+	originalSlug = originalSlugArray.filter((text) => text !== '').join('-')
 	const data: [] = await modelSelector[model]()
 
 	// get all that contain requested slug

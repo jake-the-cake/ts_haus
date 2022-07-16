@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-interface HomeProps {
+interface AddRecipeProps {
 	props?: string
 }
 
@@ -20,8 +20,9 @@ const handleRecipeSubmission = document
 
 	})
 
-export const Home:FC<HomeProps> = () => {
-	const url: string = 'https://haus-app-server.herokuapp.com/cookbook/new'
+export const AddRecipe:FC<AddRecipeProps> = () => {
+	const url: string = 'http://localhost:4200/cookbook/new'
+	// const url: string = 'https://haus-app-server.herokuapp.com/cookbook/new'
 	return (
 		<div className="form-container">
 			Add a recipe.
@@ -37,7 +38,7 @@ export const Home:FC<HomeProps> = () => {
 					<input name="comp-amount-1" type="text" width="10" placeholder="Amount"  />
 					<input name="comp-unit-1" type="text" width="5" placeholder="Unit" />
 				</fieldset>
-				<label htmlFor="steps">Directions</label><input name="steps" type="text" />
+				<label htmlFor="steps">Directions</label><input name="step-text-0" type="text" />
 				<button id='submit-recipe-button'>Submit</button>
 			</form>
 		</div>

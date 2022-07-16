@@ -1,8 +1,11 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Menu } from './components/Menu';
 import { Navbar } from './components/Navbar';
-import { Home as RecipeHome } from './pages/recipe/Home';
+import { AddRecipe } from './pages/recipe/AddRecipe';
+import { RecipeHome } from './pages/recipe/RecipeHome';
+import { MyCookbook } from './pages/recipe/MyCookbook';
+import { RecipeView } from './pages/recipe/RecipeView';
 
 export const App:React.FC = () => {
   return (
@@ -11,8 +14,15 @@ export const App:React.FC = () => {
       <Navbar />
       <Menu />
       <Routes>
-        <Route path='ts_haus/cookbook' element={<RecipeHome />}>
-          <Route path='add' element={<RecipeHome />} />
+        <Route path='ts_haus/cookbook'>
+          <Route path='' element={<RecipeHome />} />
+          <Route path='add' element={<AddRecipe />} />
+          <Route path=':user'>
+            <Route path='' element={<MyCookbook />} />
+          </Route>
+          <Route path='recipe'>
+            <Route path=':slug' element={<RecipeView />}/>
+          </Route>
         </Route>
       </Routes>
     </div>

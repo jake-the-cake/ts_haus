@@ -1,7 +1,7 @@
 {
   "name": "ts_client",
   "homepage": "https://jake-the-cake.github.io/ts_haus/",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "type": "module",
   "dependencies": {
@@ -31,8 +31,7 @@
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "start": "node build/server.js",
-    "postinstall": "tsc",
+    "start": "nodemon build/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
